@@ -1,0 +1,9 @@
+﻿@model IEnumerable<Mishutki.Domain.Entities.Category>
+
+<h2 class="section-title">Категории</h2>
+<ul class="categories">
+    @foreach(var item in Model)
+    {
+        <li>@Html.RouteLink(@item.Title, "Category", new { category = item.Alias })</li>
+    }
+</ul>

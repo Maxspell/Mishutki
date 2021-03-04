@@ -1,0 +1,100 @@
+﻿@model PagedList.IPagedList<Mishutki.Domain.Entities.Tag>
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="block full">
+    @using (Html.BeginForm("ManyDelete", "Tag", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <div class="block-title">
+            <h2><strong>Datatables</strong> integration</h2>
+        </div>
+        <div class="table-options clearfix">
+            <div data-toggle="buttons" class="btn-group btn-group-sm pull-left">
+                <label title="" data-toggle="tooltip" class="btn btn-primary" id="style-borderless" data-original-title=".table-borderless">
+                    @Html.ActionLink("Создать", "Create", "Tag")
+                </label>
+            </div>
+
+            @if (ViewData["TitleMessage"] != null)
+            {
+                <div class="col-sm-4 center">
+                    <div class="alert @ViewData["ClassMessage"] alert-dismissable">
+                        <h4><i class="fa @ViewData["IconClass"]"></i> @ViewData["TitleMessage"]</h4> @ViewData["DescriptionMessage"]
+                    </div>
+                </div>
+            }
+
+        </div>
+
+        <div class="table-responsive">
+            <div role="grid" class="dataTables_wrapper" id="example-datatable_wrapper">
+                <div class="row">
+                    <div class="col-sm-6 col-xs-5">
+                        <div id="example-datatable_length" class="dataTables_length">
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-xs-7">
+                        <div class="dataTables_filter" id="example-datatable_filter">
+                            <label>
+                                <div class="input-group">
+                                    <input type="text" aria-controls="example-datatable" class="form-control" placeholder="Search">
+                                    <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <table class="table table-vcenter table-condensed table-bordered dataTable" id="example-datatable" aria-describedby="example-datatable_info">
+                    <thead>
+                        <tr role="row">
+                            <th class="text-center" style="width: 20px;"><input type="checkbox" id="deleteItems" class="selectAll"></th>
+                            <th class="text-center sorting_asc" role="columnheader" tabindex="0" aria-controls="example-datatable" rowspan="1" colspan="1" style="width: 105px;" aria-sort="ascending" aria-label="ID: activate to sort column descending">ID</th>
+                            <th class="text-center sorting_disabled" role="columnheader" rowspan="1" colspan="1" style="width: 207px;" aria-label="">Название</th>
+                            <th class="text-center" role="columnheader" tabindex="0" aria-controls="example-datatable" rowspan="1" colspan="1" style="width: 50px;" aria-label="Client: activate to sort column ascending">Создано</th>
+                            <th class="text-center" role="columnheader" tabindex="0" aria-controls="example-datatable" rowspan="1" colspan="1" style="width: 50px;" aria-label="Client: activate to sort column ascending">Изменено</th>
+                            <th class="text-center" role="columnheader" tabindex="0" aria-controls="example-datatable" rowspan="1" colspan="1" style="width: 50px;" aria-label="Client: activate to sort column ascending">Изменил</th>
+                        </tr>
+                    </thead>
+
+                    <tbody role="alert" aria-live="polite" aria-relevant="all">
+                        @foreach (var t in Model)
+                        {
+                            <tr class="odd">
+                                <td class="text-center"><input type="checkbox" name="deleteItems" value="@t.TagId" /></td>
+                                <td class="text-center">@t.TagId</td>
+                                <td class="">@Html.ActionLink(t.Title, "Edit", new { @t.TagId })</td>
+                                <td class="text-center">@t.Created</td>
+                                <td class="text-center">@t.Modified</td>
+                                <td class="text-center">@t.CreatedByUser</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <div class="row">
+                    <div class="col-sm-5 hidden-xs">
+                        <div class="dataTables_info" id="example-datatable_info">
+                            <strong>@Model.FirstItemOnPage</strong>-<strong>@Model.LastItemOnPage</strong> из <strong>@Model.TotalItemCount</strong>
+                        </div>
+                    </div>
+                    <div class="col-sm-7 col-xs-12 clearfix">
+                        <!-- BEGIN PAGINATION -->
+                        @Html.PagedListPager(Model, page => Url.Action("Index", new { page }),
+                                    new PagedListRenderOptions
+                                    {
+                                        UlElementClasses = new[] { "pagination pagination-sm remove-margin" },
+                                        ContainerDivClasses = new[] { "dataTables_paginate paging_bootstrap" }
+                                    })
+                        <!-- END PAGINATION -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="table-options clearfix">
+            <button type="submit" class="btn btn-sm btn-primary delete-confirm"> Удалить</button>
+        </div>
+    }
+</div>

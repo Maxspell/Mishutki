@@ -1,0 +1,9 @@
+﻿@model IEnumerable<Mishutki.Domain.Entities.Tag>
+
+<h2 class="section-title">Теги</h2>
+<ul class="tags col-sm-12">
+    @foreach(var item in Model)
+    {
+        <li><a href="@Url.Action("Index", "Tag", new { tagname = item.Title.ToLower() })">@item.Title</a></li>
+    }
+</ul>

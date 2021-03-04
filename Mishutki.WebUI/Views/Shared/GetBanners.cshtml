@@ -1,0 +1,25 @@
+﻿@model IEnumerable<Mishutki.Domain.Entities.Banner>
+
+@if (Model != null)
+{
+    foreach (var item in Model)
+    {
+        <div class="banner text-center">
+            @if (!string.IsNullOrEmpty(item.Content))
+            {
+                @item.Content;
+            }
+            else if (!string.IsNullOrEmpty(item.ImageUrl))
+            {
+                if (!string.IsNullOrEmpty(item.Link))
+                {
+                    <a href="@item.Link"><img src="/content/upload/images/@item.ImageUrl" /></a>
+                }
+                else
+                {
+                    <img src="/content/upload/images/@item.ImageUrl" />
+                }
+            }
+        </div>
+    }
+}

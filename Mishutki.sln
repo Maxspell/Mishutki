@@ -1,0 +1,49 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mishutki.Domain", "Mishutki.Domain\Mishutki.Domain.csproj", "{3432FF45-4094-4B9D-A875-0CFEC81C8D65}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mishutki.Admin", "Mishutki.Admin\Mishutki.Admin.csproj", "{1081E371-7B29-4D1A-81B5-58B9B4047E47}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mishutki.WebUI", "Mishutki.WebUI\Mishutki.WebUI.csproj", "{EDFCC063-1F2A-4F5F-9483-3A898815D81C}"
+EndProject
+Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 4
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://opiumtfs.visualstudio.com/defaultcollection
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = Mishutki.Admin\\Mishutki.Admin.csproj
+		SccProjectName1 = Mishutki.Admin
+		SccLocalPath1 = Mishutki.Admin
+		SccProjectUniqueName2 = Mishutki.Domain\\Mishutki.Domain.csproj
+		SccProjectName2 = Mishutki.Domain
+		SccLocalPath2 = Mishutki.Domain
+		SccProjectUniqueName3 = Mishutki.WebUI\\Mishutki.WebUI.csproj
+		SccProjectName3 = Mishutki.WebUI
+		SccLocalPath3 = Mishutki.WebUI
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3432FF45-4094-4B9D-A875-0CFEC81C8D65}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3432FF45-4094-4B9D-A875-0CFEC81C8D65}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3432FF45-4094-4B9D-A875-0CFEC81C8D65}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3432FF45-4094-4B9D-A875-0CFEC81C8D65}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1081E371-7B29-4D1A-81B5-58B9B4047E47}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1081E371-7B29-4D1A-81B5-58B9B4047E47}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1081E371-7B29-4D1A-81B5-58B9B4047E47}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1081E371-7B29-4D1A-81B5-58B9B4047E47}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EDFCC063-1F2A-4F5F-9483-3A898815D81C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EDFCC063-1F2A-4F5F-9483-3A898815D81C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EDFCC063-1F2A-4F5F-9483-3A898815D81C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EDFCC063-1F2A-4F5F-9483-3A898815D81C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

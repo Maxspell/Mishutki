@@ -1,0 +1,108 @@
+﻿@model PagedList.IPagedList<Mishutki.Domain.Entities.Banner>
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="block full">
+    @using (Html.BeginForm("ManyDelete", "Banner", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <div class="block-title">
+            <h2><strong>Datatables</strong> integration</h2>
+        </div>
+        <div class="table-options clearfix">
+            <div data-toggle="buttons" class="btn-group btn-group-sm pull-left">
+                <label title="" data-toggle="tooltip" class="btn btn-primary" id="style-borderless" data-original-title=".table-borderless">
+                    @Html.ActionLink("Создать", "Create", "Banner")
+                </label>
+            </div>
+
+            @if (ViewData["TitleMessage"] != null)
+            {
+                <div class="col-sm-4 center">
+                    <div class="alert @ViewData["ClassMessage"] alert-dismissable">
+                        <h4><i class="fa @ViewData["IconClass"]"></i> @ViewData["TitleMessage"]</h4> @ViewData["DescriptionMessage"]
+                    </div>
+                </div>
+            }
+
+        </div>
+
+        <div class="table-responsive">
+            <div role="grid" class="dataTables_wrapper" id="example-datatable_wrapper">
+                <div class="row">
+                    <div class="col-sm-6 col-xs-5">
+                        <div id="example-datatable_length" class="dataTables_length">
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-xs-7">
+                        <div class="dataTables_filter" id="example-datatable_filter">
+                            <label>
+                                <div class="input-group">
+                                    <input type="text" aria-controls="example-datatable" class="form-control" placeholder="Search">
+                                    <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <table class="table table-vcenter table-condensed table-bordered dataTable" id="example-datatable" aria-describedby="example-datatable_info">
+                    <thead>
+                        <tr role="row">
+                            <th class="text-center" style="width: 20px;"><input type="checkbox" id="deleteItems" class="selectAll"></th>
+                            <th class="text-center" rowspan="1" colspan="1">ID</th>
+                            <th class="text-center" rowspan="1" colspan="1">Название</th>
+                            <th class="text-center" rowspan="1" colspan="1">Изображение</th>
+                            <th class="text-center" rowspan="1" colspan="1">Ссылка</th>
+                            <th class="text-center" rowspan="1" colspan="1">Баннерное место</th>
+                            <th class="text-center" rowspan="1" colspan="1">Порядок</th>
+                            <th class="text-center" rowspan="1" colspan="1">Создано</th>
+                            <th class="text-center" rowspan="1" colspan="1">Изменено</th>
+                            <th class="text-center" rowspan="1" colspan="1">Изменил</th>
+                        </tr>
+                    </thead>
+
+                    <tbody role="alert" aria-live="polite" aria-relevant="all">
+                        @foreach (var b in Model)
+                        {
+                            <tr class="odd">
+                                <td class="text-center"><input type="checkbox" name="deleteItems" value="@b.BannerId" /></td>
+                                <td class="text-center">@b.BannerId</td>
+                                <td class="text-center">@Html.ActionLink(b.Title, "Edit", new { @b.BannerId })</td>
+                                <td class="text-center">@b.ImageUrl</td>
+                                <td class="text-center">@b.Link</td>
+                                <td class="text-center">@b.BannerPlace.Title</td>
+                                <td class="text-center">@b.Order</td>
+                                <td class="text-center">@b.Created</td>
+                                <td class="text-center">@b.Modified</td>
+                                <td class="text-center">@b.CreatedByUser</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <div class="row">
+                    <div class="col-sm-5 hidden-xs">
+                        <div class="dataTables_info" id="example-datatable_info">
+                            <strong>@Model.FirstItemOnPage</strong>-<strong>@Model.LastItemOnPage</strong> из <strong>@Model.TotalItemCount</strong>
+                        </div>
+                    </div>
+                    <div class="col-sm-7 col-xs-12 clearfix">
+                        <!-- BEGIN PAGINATION -->
+                        @Html.PagedListPager(Model, page => Url.Action("Index", new { page }),
+                                    new PagedListRenderOptions
+                                    {
+                                        UlElementClasses = new[] { "pagination pagination-sm remove-margin" },
+                                        ContainerDivClasses = new[] { "dataTables_paginate paging_bootstrap" }
+                                    })
+                        <!-- END PAGINATION -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="table-options clearfix">
+            <button type="submit" class="btn btn-sm btn-primary delete-confirm"> Удалить</button>
+        </div>
+    }
+</div>

@@ -1,0 +1,43 @@
+﻿@model Mishutki.WebUI.Models.RegisterViewModel
+@{
+    ViewBag.Title = "Регистрация";
+}
+
+        <!-- BEGIN MAIN CONTENT -->
+        <div class="main col-sm-12">
+
+            <div class="login col-sm-5 col-sm-offset-1">
+                <h1 class="center">Регистрация</h1>
+
+                <div class="col-sm-12">
+                    @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-style", role = "form" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary("", new { @class = "text-danger" })
+                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @placeholder = "Почта*" })
+                        @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "Пароль*" })
+                        @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", @placeholder = "Повторите пароль*" })
+
+                        @*<div class="checkbox">
+                            <label>
+                                <input type="checkbox" name="terms" style="display: none;" autocomplete="off"><span class="button-checkbox bootstrap-checkbox"><button class="btn clearfix btn-link" type="button"><span style="display:none;" class="icon fa fa-check-square-o"></span><span class="icon fa fa-square-o"></span><span style="display:none;" class="icon cb-icon-check-indeterminate"></span></button></span> I confirm that I have read, understood and accept the <a href="#">Terms of Use</a> and the <a href="#">Privacy Policy</a>.
+                            </label>
+                        </div>*@
+
+                        <button class="btn btn-fullcolor" type="submit">Зарегистрироваться</button>
+                    }
+                </div>
+
+
+            </div>
+
+            <div class="login-info col-sm-4 col-sm-offset-1">
+                <h1>Что дает регистрация?</h1>
+                <p>После регистрации, вы получите возможность присылать на наш сайт свои шутки и анекдоты. Также, у вас появится возможность голосовать за понравившиеся шутки других зарегистрированных пользователей.</p>
+            </div>
+        </div>
+        <!-- END MAIN CONTENT -->
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

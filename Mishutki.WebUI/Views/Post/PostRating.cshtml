@@ -1,0 +1,19 @@
+﻿@model Mishutki.Domain.Entities.Post
+
+@{
+    if (ViewBag.Like)
+    {
+        <i class="fa fa-thumbs-o-up color" data-original-title="Вам нравится" data-toggle="tooltip" data-placement="top"></i>
+        <span>@Model.Rating</span>
+        <i class="fa fa-thumbs-o-down" data-original-title="Вы уже голосовали" data-toggle="tooltip" data-placement="top"></i>
+    }
+    else
+    {
+        <i class="fa fa-thumbs-o-up" data-original-title="Вы уже голосовали" data-toggle="tooltip" data-placement="top"></i>
+        <span>@Model.Rating</span>
+        <i class="fa fa-thumbs-o-down color" data-original-title="Вам не нравится" data-toggle="tooltip" data-placement="top"></i>
+    }
+}
+
+    
+

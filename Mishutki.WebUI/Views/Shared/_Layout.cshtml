@@ -1,0 +1,197 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <title>@ViewBag.Title - Мишутки</title>
+    <meta name="description" content="Мишутки - это ресурс, на котором собран самый лучший юмор всех времен и народов. " />
+    <meta name="keywords" content="Мишутки, шутки, анекдоты, рассказы, фото приколы, видео приколы, чемпионат мира по анекдотам, галустян, юмор" />
+    <link rel="shortcut icon" type="image/x-icon" href="images/fav_touch_icons/favicon.ico" />
+    <link rel="apple-touch-icon" href="images/fav_touch_icons/apple-touch-icon.png" />
+    <link rel="apple-touch-icon" sizes="72x72" href="images/fav_touch_icons/apple-touch-icon-72x72.png" />
+    <link rel="apple-touch-icon" sizes="114x114" href="images/fav_touch_icons/apple-touch-icon-114x114.png" />
+
+    <link href="http://fonts.googleapis.com/css?family=Raleway:300,500,900%7COpen+Sans:400,700,400italic&subset=latin,cyrillic" rel="stylesheet" type="text/css" />
+    <link href='http://fonts.googleapis.com/css?family=Marck+Script&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+</head>
+<body>
+    <div id="wrapper">
+        <header id="header">
+            <div id="top-bar">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <ul id="top-info">
+                                <li>Телефон: +7 (906) 784-38-78</li>
+                                <li>Email: <a href="mailto:support@mishutki.ru">support@mishutki.ru</a></li>
+                            </ul>
+
+                            @Html.Partial("_LoginPartial")
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sticky-wrapper" style="">
+                <div id="nav-section" class="">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <a href="/" class="nav-logo" style="font-family: Marck Script; font-size: 64px; text-decoration: none;"><i class="fa fa-paw"></i>Мишутки</a>
+                                <div class="send-joke"><a class="btn btn-fullcolor" data-slide-to="contact-agency" href="@Url.Action("SendJoke", "Post")">Прислать шутку</a></div>
+                                <!-- BEGIN MAIN MENU -->
+                                <nav class="navbar">
+                                    <button id="nav-mobile-btn"><i class="fa fa-bars"></i></button>
+
+                                    <ul class="nav navbar-nav">
+                                        <li>
+                                            <a class="@Html.ActiveTab("Home", new string[]{"Index"}, "active")" href="/">Главная</a>
+                                        </li>
+                                        <li>
+                                            <a class="@Html.ActiveTab("Home", new string[]{"About"}, "active")" href="/about">О нас</a>
+                                        </li>
+                                        <li><a class="@Html.ActiveTab("Home", new string[]{"Contacts"}, "active")" href="/contacts">Контакты</a></li>
+                                    </ul>
+
+                                </nav>
+                                <!-- END MAIN MENU -->
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <div data-stellar-background-ratio="0.5" class="parallax colored-bg pattern-bg" style="background-position: -25px -92.5px;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12">
+                        @*<ul class="social-networks">
+                            <li><a target="_blank" href="https://www.facebook.com/pages/%D0%9C%D0%B8%D0%A8%D1%83%D1%82%D0%BA%D0%B8/1525229894361279?ref=hl"><i class="fa fa-facebook"></i></a></li>
+                            <li><a target="_blank" href="https://twitter.com/Joke_Galustyan"><i class="fa fa-twitter"></i></a></li>
+                            <li><a target="_blank" href="http://vk.com/club77643139"><i class="fa fa-vk"></i></a></li>
+                        </ul>*@
+                        <h1 class="page-title">Главная</h1>
+
+                        <ul class="breadcrumb">
+                            <li><a href="/">Главная </a></li>
+                            <li><a href="/anekdoty">Анекдоты</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="content">
+            <div class="container">
+                <div class="row">
+                    @RenderBody()
+                </div>
+            </div>
+       </div>
+                <footer id="footer">
+                    <div class="container" id="footer-top">
+                        <div class="row">
+                            <div class="block col-sm-4">
+                                <a href="http://mishutki.ru"><i class="fa fa-paw"></i> Мишутки</a>
+                                <br><br>
+                                <p>Мишутки - это ресурс, на котором собран самый лучший юмор всех времен и народов.
+                                    <br><br>
+После регистрации, вы получите возможность прислать нам свою шутки, анекдоты, забавные фото и видео. Также, вы сможете голосовать за шутки, присланные другими пользователями.</p>
+                            </div>
+                            <div class="block col-sm-4">
+                                <h3>Полезные ссылки</h3>
+                                <ul class="footer-links">
+                                    <li><a href="#"></a></li>
+                                    <li><a href="#"></a></li>
+                                    <li><a href="#"></a></li>
+                                    <li><a href="#"></a></li>
+                                </ul>
+                            </div>
+                            <div class="block col-sm-4">
+                                <h3>Контакты</h3>
+                                <ul class="footer-contacts">
+                                    <li><i class="fa fa-phone"></i> +7 (906) 784-38-78</li>
+                                    <li><i class="fa fa-envelope"></i> <a href="mailto:support@mishutki.ru">support@mishutki.ru</a></li>
+                                </ul>
+                            </div>
+                            
+                        </div>
+                    </div>
+
+
+                    <!-- BEGIN COPYRIGHT -->
+                    <div id="copyright">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    &copy; 2014 Mishutki.ru. Все права защищены.
+
+                                    <!-- BEGIN SOCIAL NETWORKS -->
+                                    @*<ul class="social-networks">
+                                        <li><a target="_blank" href="https://www.facebook.com/pages/%D0%9C%D0%B8%D0%A8%D1%83%D1%82%D0%BA%D0%B8/1525229894361279?ref=hl"><i class="fa fa-facebook"></i></a></li>
+                                        <li><a target="_blank" href="https://twitter.com/Joke_Galustyan"><i class="fa fa-twitter"></i></a></li>
+                                        <li><a target="_blank" href="http://vk.com/club77643139"><i class="fa fa-vk"></i></a></li>
+                                    </ul>*@
+                                    <!-- END SOCIAL NETWORKS -->
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END COPYRIGHT -->
+
+                </footer>
+            </div>
+            @Scripts.Render("~/bundles/jquery")
+            @Scripts.Render("~/bundles/bootstrap")
+            @RenderSection("scripts", required: false)
+            <script>
+                $(".chosen-select").chosen({ disable_search_threshold: 10, inherit_select_classes: true });
+
+                $('.chosen-select').on('change', function () {
+                    $('.chzn-results .active-result').click(function () {
+                        if ($(this).attr('id') == "sort_by_chzn_o_1") {
+                            window.location.href = "@Url.Action("Index", new { sort = "date", page = 1 })"
+                        } else if ($(this).attr('id') == "sort_by_chzn_o_2") {
+                            window.location.href = "@Url.Action("Index", new { sort = "rating", page = 1 })"
+                        }
+                    });
+                });
+                $('.fa').tooltip();
+                $("a.fa-thumbs-o-up, a.fa-thumbs-o-down").empty();
+            </script>
+
+    <!-- Yandex.Metrika counter -->
+    <script type="text/javascript">
+        (function (d, w, c) {
+            (w[c] = w[c] || []).push(function () {
+                try {
+                    w.yaCounter26822490 = new Ya.Metrika({
+                        id: 26822490,
+                        clickmap: true,
+                        trackLinks: true,
+                        accurateTrackBounce: true
+                    });
+                } catch (e) { }
+            });
+
+            var n = d.getElementsByTagName("script")[0],
+                s = d.createElement("script"),
+                f = function () { n.parentNode.insertBefore(s, n); };
+            s.type = "text/javascript";
+            s.async = true;
+            s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js";
+
+            if (w.opera == "[object Opera]") {
+                d.addEventListener("DOMContentLoaded", f, false);
+            } else { f(); }
+        })(document, window, "yandex_metrika_callbacks");
+    </script>
+    <noscript><div><img src="//mc.yandex.ru/watch/26822490" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+    <!-- /Yandex.Metrika counter -->
+</body>
+</html>

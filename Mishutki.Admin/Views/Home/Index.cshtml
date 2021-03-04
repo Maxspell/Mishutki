@@ -1,0 +1,153 @@
+﻿@model Mishutki.Admin.Models.HomeViewModel
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="block full">
+    <div class="block-title"><h2><strong>Сетка блоков</strong></h2></div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="widget">
+                <div class="widget-extra text-center themed-background-default">
+                    <h3 class="widget-content-light"><i class="fa fa-chevron-up animation-floating"></i> <strong>Статистика</strong></h3>
+                </div>
+                <div class="widget-simple themed-background-dark-default">
+                    <div class="row text-center">
+                        <div class="col-xs-3">
+                            <a class="widget-icon themed-background-default" href="@Url.Action("Index" , "Post")">
+                                <i class="fa fa-file-text"></i>
+                            </a>
+                            <h3 class="widget-content-light remove-margin-bottom"><strong>@Model.PostCount</strong><br><small>Постов</small></h3>
+                        </div>
+                        <div class="col-xs-3">
+                            <a class="widget-icon themed-background-default" href="@Url.Action("Index" , "User")">
+                                <i class="fa fa-user"></i>
+                            </a>
+                            <h3 class="widget-content-light remove-margin-bottom"><strong>@Model.UserCount</strong><br><small>Пользователей</small></h3>
+                        </div>
+                        <div class="col-xs-3">
+                            <a class="widget-icon themed-background-default" href="@Url.Action("Index" , "Category")">
+                                <i class="fa fa-book"></i>
+                            </a>
+                            <h3 class="widget-content-light remove-margin-bottom"><strong>@Model.CategoryCount</strong><br><small>Категорий</small></h3>
+                        </div>
+                        <div class="col-xs-3">
+                            <a class="widget-icon themed-background-default" href="@Url.Action("Index" , "Tag")">
+                                <i class="fa fa-tags"></i>
+                            </a>
+                            <h3 class="widget-content-light remove-margin-bottom"><strong>@Model.TagCount</strong><br><small>Тегов</small></h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="block">
+                <div class="block-title"><h4>Последние добавленные посты</h4></div>
+                <table class="table table-borderless table-striped table-vcenter">
+                    <thead>
+                        <tr>
+                            <th class="text-center hidden-xs hidden-sm">ID</th>
+                            <th class="text-center hidden-xs hidden-sm">Категория</th>
+                            <th class="text-center hidden-xs hidden-sm">Изменено</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var p in Model.Posts)
+                        {
+                        <tr>
+                            <td class="text-center hidden-xs hidden-sm">@Html.ActionLink(p.PostId.ToString(), "Edit", new { @p.PostId })</td>
+                            <td class="text-center hidden-xs hidden-sm">@p.Category.Title</td>
+                            <td class="text-center hidden-xs hidden-sm">@p.Created</td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="block">
+                <div class="block-title"><h4>Последние добавленные категории</h4></div>
+                <table class="table table-borderless table-striped table-vcenter">
+                    <thead>
+                        <tr>
+                            <th class="text-center hidden-xs hidden-sm">ID</th>
+                            <th class="text-center hidden-xs hidden-sm">Название</th>
+                            <th class="text-center hidden-xs hidden-sm">Изменено</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var c in Model.Categories)
+                        {
+                            <tr>
+                                <td class="text-center hidden-xs hidden-sm">@c.CategoryId</td>
+                                <td class="text-center hidden-xs hidden-sm">@Html.ActionLink(c.Title, "Edit", new { @c.CategoryId })</td>
+                                <td class="text-center hidden-xs hidden-sm">@c.Created</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="block">
+                <div class="block-title"><h4>Последние добавленные теги</h4></div>
+                <table class="table table-borderless table-striped table-vcenter">
+                    <thead>
+                        <tr>
+                            <th class="text-center hidden-xs hidden-sm">ID</th>
+                            <th class="text-center hidden-xs hidden-sm">Название</th>
+                            <th class="text-center hidden-xs hidden-sm">Изменено</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var t in Model.Tags)
+                        {
+                            <tr>
+                                <td class="text-center hidden-xs hidden-sm">@t.TagId</td>
+                                <td class="text-center hidden-xs hidden-sm">@Html.ActionLink(t.Title, "Edit", new { @t.TagId })</td>
+                                <td class="text-center hidden-xs hidden-sm">@t.Created</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="dataTables_wrapper form-inline no-footer">
+                <div class="row"><div class="col-sm-6"><h4><strong>Пользователи</strong></h4></div></div>
+                <table class="table table-vcenter table-condensed table-bordered dataTable no-footer" id="example-datatable" role="grid" aria-describedby="example-datatable_info">
+                    <thead>
+                        <tr role="row">
+                        <th class="text-center" rowspan="1" colspan="1">ID</th>
+                        <th class="text-center" rowspan="1" colspan="1"><i class="fa fa-user"></i></th>
+                        <th class="text-center" rowspan="1" colspan="1">Логин</th>
+                        <th class="text-center" rowspan="1" colspan="1">Почта</th>
+                        <th class="text-center" rowspan="1" colspan="1">Подтверждение почты</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var u in Model.Users)
+                        {
+                        <tr>
+                            <td class="text-center">@u.Id</td>
+                            <td class="text-center"><img class="img-circle" alt="avatar" src="/Content/img/avatar2.jpg"></td>
+                            <td class="text-center">@u.UserName</td>
+                            <td class="text-center">@u.Email</td>
+                            <td class="text-center">@u.EmailConfirmed</td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+
+</div>

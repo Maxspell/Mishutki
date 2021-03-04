@@ -1,0 +1,42 @@
+﻿@model Mishutki.Domain.Entities.Post
+@{
+    ViewBag.Title = "Регистрация";
+}
+
+<!-- BEGIN MAIN CONTENT -->
+<div class="main col-sm-12">
+
+    <div class="login col-sm-5 col-sm-offset-1">
+        <h1 class="center">Отправить шутку</h1>
+
+        <div class="col-sm-12">
+            @using (Html.BeginForm("SendJoke", "Post", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-style", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary("", new { @class = "text-danger" })
+                @Html.TextBoxFor(p => p.Title, new { @class = "form-control", placeholder = "Название" })
+                @Html.TextAreaFor(p => p.Content, new { @class = "form-control", placeholder = "Текст шутки", rows = "5" })
+                @Html.DropDownList("CategoryId", (IEnumerable<SelectListItem>)ViewBag.CategoryList, string.Empty, new { @class = "chosen-select form-control-joke", @data_placeholder = "Категория" })
+
+                @*<div class="checkbox">
+                        <label>
+                            <input type="checkbox" name="terms" style="display: none;" autocomplete="off"><span class="button-checkbox bootstrap-checkbox"><button class="btn clearfix btn-link" type="button"><span style="display:none;" class="icon fa fa-check-square-o"></span><span class="icon fa fa-square-o"></span><span style="display:none;" class="icon cb-icon-check-indeterminate"></span></button></span> I confirm that I have read, understood and accept the <a href="#">Terms of Use</a> and the <a href="#">Privacy Policy</a>.
+                        </label>
+                    </div>*@
+
+                <button class="btn btn-fullcolor" type="submit">Отправить</button>
+            }
+        </div>
+
+
+    </div>
+
+    <div class="login-info col-sm-4 col-sm-offset-1">
+        <h1>Что дает регистрация?</h1>
+        <p>После регистрации, вы получите возможность присылать на наш сайт свои шутки и анекдоты. Также, у вас появится возможность голосовать за понравившиеся шутки других зарегистрированных пользователей.</p>
+    </div>
+</div>
+<!-- END MAIN CONTENT -->
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

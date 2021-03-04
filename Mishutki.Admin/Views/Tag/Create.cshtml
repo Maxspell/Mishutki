@@ -1,0 +1,32 @@
+﻿@model Mishutki.Domain.Entities.Tag
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="block">
+            <div class="block-title">
+                <h2><strong>Basic Form</strong> Elements</h2>
+            </div>
+            @using (Html.BeginForm("Create", "Tag", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal form-bordered" }))
+            {
+                @Html.HiddenFor(t => t.TagId)
+                <div class="form-group">
+                    @Html.LabelFor(t => t.Title, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-8">
+                        @Html.TextBoxFor(c => c.Title, new { @class = "form-control", placeholder = "Тег" })
+                    </div>
+                </div>
+                <div class="form-group form-actions">
+                    <div class="col-md-8 col-md-offset-2">
+                        <button class="btn btn-sm btn-primary" type="submit"><i class="fa fa-angle-right"></i> Сохранить</button>
+                        <a class="btn btn-sm btn-warning" href="@Url.Action("Index")"><i class="fa fa-repeat"></i> Отменить</a>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

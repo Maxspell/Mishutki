@@ -1,0 +1,10 @@
+﻿@model Mishutki.Admin.Models.AssignedTagData
+
+<tr>
+    <td>
+        @Html.HiddenFor(model => model.TagId)
+    @Html.DisplayFor(model => model.TagId)
+</td>
+<td class="checkbox">@Html.CheckBoxFor(model => model.Assigned)</td>
+<td>@Html.DisplayFor(model => model.Title)</td>
+</tr>

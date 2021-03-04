@@ -1,0 +1,50 @@
+﻿@model Mishutki.WebUI.Models.LoginViewModel
+
+@{
+    ViewBag.Title = "Войти";
+}
+
+        <!-- BEGIN MAIN CONTENT -->
+        <div class="main col-sm-12">
+
+            <div class="login col-sm-5 col-sm-offset-1">
+                <h1 class="center">Войти</h1>
+
+                <div class="col-sm-12">
+                    @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-style", role = "form" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "Почта" })
+                        @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                        @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Пароль" })
+                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                        
+                        <div class="checkbox">
+                            <label>
+                                @Html.CheckBoxFor(m => m.RememberMe)
+                                 Запомнить?
+                            </label>
+                        </div>
+                        
+                        <button class="btn btn-fullcolor" type="submit">Войти</button>
+                    }
+
+                    <p class="recover-pass"><a href="@Url.Action("ForgotPassword", "Account")">Забыли почту или пароль?</a></p>
+
+                    <a class="btn btn-default-color" href="@Url.Action("Register", "Account")">Зарегистрироваться</a>
+                </div>
+
+
+            </div>
+
+            <div class="login-info col-sm-4 col-sm-offset-1">
+                <h1>Что дает регистрация?</h1>
+                <p>После регистрации, вы получите возможность присылать на наш сайт свои шутки и анекдоты. Также, у вас появится возможность голосовать за понравившиеся шутки других зарегистрированных пользователей.</p>
+            </div>
+        </div>
+        <!-- END MAIN CONTENT -->
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,9 @@
+﻿.center {
+    float: none;
+    margin: 0 auto;
+}
+.version-block {
+    color: #777777;
+    display: block;
+    margin-bottom: 5px;
+}

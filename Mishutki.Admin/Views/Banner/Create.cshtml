@@ -1,0 +1,77 @@
+﻿@model Mishutki.Domain.Entities.Banner
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="block">
+            <div class="block-title">
+                <h2><strong>Basic Form</strong> Elements</h2>
+            </div>
+            @using (Html.BeginForm("Create", "Banner", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal form-bordered" }))
+            {
+                @Html.HiddenFor(b => b.BannerId)
+                <div class="form-group">
+                    @Html.LabelFor(b => b.Title, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-8">
+                        @Html.TextBoxFor(b => b.Title, new { @class = "form-control", placeholder = "Название" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(b => b.ImageUrl, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-3">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <label class="switch switch-primary">@Html.RadioButton("choices", "rdbText", (bool)ViewBag.RdbText)<span></span></label>
+                            </div>
+                            <div class="col-md-8">  
+                                @Html.TextBoxFor(b => b.ImageUrl, new { @class = "form-control input-sm", placeholder = "Файл..." })
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2">
+                                <label class="switch switch-primary">@Html.RadioButton("choices", "rdbUpload", (bool)ViewBag.RdbUpload)<span></span></label>
+                            </div>
+                            <div class="col-md-8">
+                                <input type="file" name="picture">
+                            </div>
+                        </div>     
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(b => b.Link, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-8">
+                        @Html.TextBoxFor(b => b.Link, new { @class = "form-control", placeholder = "Ссылка" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(b => b.Content, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-8">
+                        @Html.TextAreaFor(b => b.Content, new { @class = "form-control ckeditor", placeholder = "Текст...", rows = "5" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(b => b.Order, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-8">
+                        @Html.TextBoxFor(b => b.Order, new { @class = "form-control", placeholder = "Ссылка" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(b => b.BannerPlaceId, "BannerPlace", new { @class = "col-md-2 control-label" })
+                    <div class="col-md-2">
+                        @Html.DropDownList("BannerPlaceId", (IEnumerable<SelectListItem>)ViewBag.BannerPlaceList, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group form-actions">
+                    <div class="col-md-8 col-md-offset-2">
+                        <button class="btn btn-sm btn-primary" type="submit"><i class="fa fa-angle-right"></i> Сохранить</button>
+                        <a class="btn btn-sm btn-warning" href="@Url.Action("Index")"><i class="fa fa-repeat"></i> Отменить</a>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

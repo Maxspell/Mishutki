@@ -1,0 +1,89 @@
+﻿@model Mishutki.Domain.Entities.Post
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="block">
+            <div class="block-title">
+                <h2><strong>Basic Form</strong> Elements</h2>
+            </div>
+            @using (Html.BeginForm("Edit", "Post", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal form-bordered" }))
+            {
+                @Html.HiddenFor(p => p.PostId)
+                <div class="form-group">
+                    @Html.LabelFor(p => p.Title, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-8">
+                        @Html.TextBoxFor(p => p.Title, new { @class = "form-control", placeholder = "Название услуги" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(p => p.Content, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-8">
+                        @Html.TextAreaFor(p => p.Content, new { @class = "form-control ckeditor", placeholder = "Текст...", rows = "5" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(p => p.CategoryId, "Category", new { @class = "col-md-2 control-label" })
+                    <div class="col-md-2">
+                        @Html.DropDownList("CategoryId", (IEnumerable<SelectListItem>)ViewBag.CategoryList, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(p => p.Tags, "Tag", new { @class = "col-md-2 control-label" })
+                    <div class="col-md-8">
+                        <table class="table table-vcenter table-condensed table-bordered dataTable no-footer">
+                            @{List<Mishutki.Admin.Models.AssignedTagData> tags = ViewBag.Tags;}
+                            <thead>
+                                <tr>
+                                    <th class="text-center">ID</th>
+                                    <th class="text-center">#</th>
+                                    <th class="text-center">Название</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var tag in tags)
+                                {
+                                    <tr class="text-center">
+                                        <td>@tag.TagId</td>
+                                        <td>
+                                            <input type="checkbox"
+                                                   name="selectedTags"
+                                                   value="@tag.TagId"
+                                                   @(Html.Raw(tag.Assigned ? "checked=\"checked\"" : "")) />
+                                        </td>
+                                        <td>@tag.Title</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(p => p.StatusTypeId, "Status", new { @class = "col-md-2 control-label" })
+                    <div class="col-md-2">
+                        @Html.DropDownList("StatusTypeId", (IEnumerable<SelectListItem>)ViewBag.StatusTypeList, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="Версия" class="col-md-2 control-label">Версия</label>
+                    <div class="col-md-3">
+                        <span class="version-block">ID: @Model.PostId</span>
+                        <span class="version-block">Создано: @Model.Created</span>
+                        <span class="version-block">Изменено: @Model.Modified</span>
+                        <span class="version-block">Изменил: @Model.CreatedByUser</span>
+                    </div>
+                </div>
+                <div class="form-group form-actions">
+                    <div class="col-md-8 col-md-offset-2">
+                        <button class="btn btn-sm btn-primary" type="submit"><i class="fa fa-angle-right"></i> Сохранить</button>
+                        <a class="btn btn-sm btn-warning" href="@Url.Action("Index")"><i class="fa fa-repeat"></i> Отменить</a>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

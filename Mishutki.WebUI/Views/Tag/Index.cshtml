@@ -1,0 +1,19 @@
+﻿@{
+    ViewBag.Title = "Теги";
+}
+
+
+@{ Html.RenderAction("Posts", "Tag"); }
+<!-- BEGIN SIDEBAR -->
+<div class="sidebar gray col-sm-4">
+
+    @{ Html.RenderAction("GetCategories", "Category"); }
+  
+    @{ Html.RenderAction("GetBanners", "Home", new { bannerPlaceId = 1 });}
+
+    @{ Html.RenderAction("GetTags", "Home"); }
+
+    @{ Html.RenderAction("GetBanners", "Home", new { bannerPlaceId = 2 });}
+
+</div>
+<!-- END SIDEBAR -->

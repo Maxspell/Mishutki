@@ -1,0 +1,133 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{3432FF45-4094-4B9D-A875-0CFEC81C8D65}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Mishutki.Domain</RootNamespace>
+    <AssemblyName>Mishutki.Domain</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.0.0\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Abstract\IRepository.cs" />
+    <Compile Include="Abstract\IUnitOfWork.cs" />
+    <Compile Include="Concrete\CachedBannerPlaceRepository.cs" />
+    <Compile Include="Concrete\CachedBannerRepository.cs" />
+    <Compile Include="Concrete\CachedCategoryRepository.cs" />
+    <Compile Include="Concrete\CachedPostRepository.cs" />
+    <Compile Include="Concrete\CachedTagRepository.cs" />
+    <Compile Include="Concrete\EFDbContext.cs" />
+    <Compile Include="Concrete\EFRepository.cs" />
+    <Compile Include="Concrete\UnitOfWork.cs" />
+    <Compile Include="Entities\Banner.cs" />
+    <Compile Include="Entities\BannerPlace.cs" />
+    <Compile Include="Entities\Category.cs" />
+    <Compile Include="Entities\Post.cs" />
+    <Compile Include="Entities\PostRating.cs" />
+    <Compile Include="Entities\Tag.cs" />
+    <Compile Include="Migrations\201409150842284_AddFieldRating.cs" />
+    <Compile Include="Migrations\201409150842284_AddFieldRating.Designer.cs">
+      <DependentUpon>201409150842284_AddFieldRating.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201409221959472_AddPostRating.cs" />
+    <Compile Include="Migrations\201409221959472_AddPostRating.Designer.cs">
+      <DependentUpon>201409221959472_AddPostRating.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201410041113537_AddFieldStatusTypeId.cs" />
+    <Compile Include="Migrations\201410041113537_AddFieldStatusTypeId.Designer.cs">
+      <DependentUpon>201410041113537_AddFieldStatusTypeId.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201410072010275_AddFieldAlias.cs" />
+    <Compile Include="Migrations\201410072010275_AddFieldAlias.Designer.cs">
+      <DependentUpon>201410072010275_AddFieldAlias.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201410191120255_AddBanner.cs" />
+    <Compile Include="Migrations\201410191120255_AddBanner.Designer.cs">
+      <DependentUpon>201410191120255_AddBanner.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201410191639564_EditTitleBanner.cs" />
+    <Compile Include="Migrations\201410191639564_EditTitleBanner.Designer.cs">
+      <DependentUpon>201410191639564_EditTitleBanner.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201409150842284_AddFieldRating.resx">
+      <DependentUpon>201409150842284_AddFieldRating.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201409221959472_AddPostRating.resx">
+      <DependentUpon>201409221959472_AddPostRating.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201410041113537_AddFieldStatusTypeId.resx">
+      <DependentUpon>201410041113537_AddFieldStatusTypeId.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201410072010275_AddFieldAlias.resx">
+      <DependentUpon>201410072010275_AddFieldAlias.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201410191120255_AddBanner.resx">
+      <DependentUpon>201410191120255_AddBanner.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201410191639564_EditTitleBanner.resx">
+      <DependentUpon>201410191639564_EditTitleBanner.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

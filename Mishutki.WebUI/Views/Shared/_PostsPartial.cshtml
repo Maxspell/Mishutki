@@ -1,0 +1,222 @@
+﻿@model PagedList.IPagedList<Mishutki.Domain.Entities.Post>
+@using PagedList.Mvc;
+@using Mishutki.Domain.Entities;
+@using Microsoft.AspNet.Identity;
+
+@{
+    string selectedDate = string.Empty;
+    string selectedRating = string.Empty;
+    if (ViewBag.SortParamAsc == "date_asc" || ViewBag.SortParamDesc == "date")
+    {
+        selectedDate = "selected";
+    }
+    else if (ViewBag.SortParamAsc == "rating_asc" || ViewBag.SortParamDesc == "rating")
+    {
+        selectedRating = "selected";
+    }
+}
+
+<!-- BEGIN POST CONTENT -->
+<div class="main col-sm-8">
+    @if (ViewContext.Controller.ValueProvider.GetValue("controller").RawValue.ToString() == "Tag")
+    {
+        <h2 class="tag-title">Шутки по тэгу: @ViewBag.Tagname</h2>
+    }
+    else if (ViewContext.Controller.ValueProvider.GetValue("controller").RawValue.ToString() == "Archive")
+    {
+        <h2 class="tag-title">Шутки за: @ViewBag.MonthOfYear</h2>
+    }
+    else
+    {
+    <div class="clearfix" id="listing-header">
+        <div class="form-control-small">
+            <select id="sort_by" class="chosen-select" name="sort_by" data-placeholder="Сортировка">
+                <option value=""> </option>
+                <option value="date" @selectedDate>По дате</option>
+                <option value="rating" @selectedRating>По рейтингу</option>
+            </select>
+        </div>
+
+        <div class="sort">
+            <ul>
+                <li class="@ActiveSortClass(ViewBag.SortParamDesc)">
+                    <a href="@Url.Action("Index", new { sort = ViewBag.SortParamDesc, page = 1 })"><i class="fa fa-chevron-down" title="" data-placement="top" data-toggle="tooltip" data-original-title="По убыванию"></i></a>
+                </li>
+                <li class="@ActiveSortClass(ViewBag.SortParamAsc)">
+                    <a href="@Url.Action("Index", new { sort = ViewBag.SortParamAsc, page = 1 })"><i class="fa fa-chevron-up" title="" data-placement="top" data-toggle="tooltip" data-original-title="По возрастанию"></i></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    }
+    <!-- BEGIN BLOG LISTING -->
+    <div class="grid-style1 clearfix">
+        @foreach (var p in Model)
+        {
+            <div class="item col-md-12">
+                <!-- Set width to 4 columns for grid view mode only -->
+                <div class="info-blog">
+                    <ul class="top-info">
+                        <li><i class="fa fa-calendar"></i> @p.Created.ToShortDateString()</li>
+                        @if (Request.IsAuthenticated)
+                        {
+                            if (IsVote(p.PostRatings, User.Identity.GetUserId()))
+                            {
+                                if (isLike)
+                                { 
+                                    <li class="post-rating-box">
+                                        <i class="fa fa-thumbs-o-up color" data-original-title="Вам нравится" data-toggle="tooltip" data-placement="top"></i>
+                                        <span>@p.Rating</span>
+                                        <i class="fa fa-thumbs-o-down" data-original-title="Вы уже голосовали" data-toggle="tooltip" data-placement="top"></i>
+                                    </li>
+                                }
+                                else
+                                {
+                                    <li class="post-rating-box">
+                                        <i class="fa fa-thumbs-o-up" data-original-title="Вы уже голосовали" data-toggle="tooltip" data-placement="top"></i>
+                                        <span>@p.Rating</span>
+                                        <i class="fa fa-thumbs-o-down color" data-original-title="Вам не нравится" data-toggle="tooltip" data-placement="top"></i>
+                                    </li>
+                                }
+                            }
+                            else 
+                            { 
+                                <li id="post-@p.PostId" class="post-rating-box">
+                                    @Ajax.ActionLink("Нравится",
+                                                       "PostRating",
+                                                       "Post",
+                                                       new RouteValueDictionary(new { id = @p.PostId, vote = "like" }),
+                                                       new AjaxOptions
+                                                       {
+                                                           UpdateTargetId = "post-" + @p.PostId,
+                                                           HttpMethod = "Post",
+                                                           LoadingElementId = "loading",
+                                                           OnComplete = "OnComplete"
+                                                       },
+                                                       new Dictionary<string, Object>
+                                                       {
+                                                           { "class", "fa fa-thumbs-o-up" },
+                                                           { "data-original-title", "Нравится" },
+                                                           { "data-toggle", "tooltip" },
+                                                           { "data-placement", "top" }
+                                                       })
+                                    <span>@p.Rating</span>
+                                    @Ajax.ActionLink("Не нравится",
+                                                       "PostRating",
+                                                       "Post",
+                                                       new RouteValueDictionary(new { id = @p.PostId, vote = "dislike" }),
+                                                       new AjaxOptions
+                                                       {
+                                                           UpdateTargetId = "post-" + @p.PostId,
+                                                           HttpMethod = "Post",
+                                                           LoadingElementId = "loading",
+                                                           OnComplete = "OnComplete"
+                                                       },
+                                                       new Dictionary<string, Object>
+                                                       {
+                                                           { "class", "fa fa-thumbs-o-down" },
+                                                           { "data-original-title", "Не нравится" },
+                                                           { "data-toggle", "tooltip" },
+                                                           { "data-placement", "top" }
+                                                       })
+                                    <img id="loading" src="@Url.Content("~/Content/images/ajax-loader.gif")" style="display:none;" />
+                                </li>
+                            }
+                        }
+                        else
+                        {
+                            <li class="post-rating-box">
+                                <i class="fa fa-thumbs-o-up" data-original-title="Авторизуйтесь" data-toggle="tooltip" data-placement="top"></i>
+                                <span>@p.Rating</span>
+                                <i class="fa fa-thumbs-o-down" data-original-title="Авторизуйтесь" data-toggle="tooltip" data-placement="top"></i>
+                            </li>
+                        }
+                        <li><i class="fa fa-book"></i>@Html.RouteLink(p.Category.Title, "Category", new { category = p.Category.Alias })</li>
+
+                        @if (!IsNullOrEmptyTags(p.Tags))
+                        {
+                            <li><i class="fa fa-tags"></i>@TagsToString(p.Tags)</li>
+                        }
+                    </ul>
+                    @if (!String.IsNullOrEmpty(p.Title))
+                    {
+                        <h3><a href="blog-detail.html">@p.Title</a></h3>
+                    }
+                    <p>@Html.Raw(p.Content)</p>
+                </div>
+            </div>
+        }
+    </div>
+    <!-- END POST LISTING -->
+    <!-- BEGIN PAGINATION -->
+    @Html.PagedListPager(Model, page => Url.Action("Index", 
+                                    new { year = Request.QueryString["year"],
+                                          month = Request.QueryString["month"], 
+                                          page }),
+                                    new PagedListRenderOptions
+                                    {
+                                        UlElementClasses = new[] { "" },
+                                        ContainerDivClasses = new[] { "pagination" }
+                                    })
+    <!-- END PAGINATION -->
+</div>
+<!-- END MAIN CONTENT -->
+
+@functions {
+
+    bool isLike;
+    bool IsVote(ICollection<PostRating> items, string UserId)
+    {
+        foreach(var item in items)
+        {
+            if (item.UserId == UserId)
+            {
+                isLike = item.Like;
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    private string ActiveSortClass(string sortParam)
+    {
+        if (ViewContext.RouteData.Values["sort"] != null)
+        {
+            if (ViewContext.RouteData.Values["sort"].ToString() == sortParam)
+            {
+                return "active";
+            }
+            else
+            {
+                return string.Empty;
+            }
+        }
+        else if (sortParam == "date" && ViewContext.RouteData.Values["sort"] == null)
+        {
+            return "active";
+        }
+        else
+        {
+            return string.Empty;
+        }
+    }
+
+    public static string TagsToString(IEnumerable<Tag> source)
+    {
+        if (source == null) throw new ArgumentNullException("source");
+
+        return String.Join(", ", source.Select(t => t.Title));
+    }
+
+    public static bool IsNullOrEmptyTags(IEnumerable<Tag> items)
+    {
+        return items == null || !items.Any();
+    }
+}
+
+@*<script type="text/javascript">
+    function OnComplete(request, status) {
+        $(".fa").tooltip('show')
+        
+    }
+</script>*@
